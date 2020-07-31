@@ -1,12 +1,46 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <link rel="stylesheet" href="index.css">
-  </head>
-  <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <title>CPU Monitor</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <div class="box">
+    <span class="label">CPUs</span>
+    <span id="num-cpu"></span>
+  </div>
+  <div class="box">
+    <span class="label">CPU Usage(%)</span>
+    <span id="cpu"></span>
+  </div>
+  <div class="box">
+    <span class="label">Total RAM(GB)</span>
+    <span id="total-ram"></span>
+  </div>
+  <div class="box">
+    <span class="label">RAM Usage(%)</span>
+    <span id="ram"></span>
+  </div>
+  <script>
+    const electron = require('electron');
+    const ipcRenderer = electron.ipcRenderer;
+
+    ipcRenderer.on('num-cpu', (e, data) => {
+      document.getElementById('num-cpu').innerHTML = data.toFixed(2);
+    })
+    ipcRenderer.on('cpu', (e, data) => {
+      document.getElementById('cpu').innerHTML = data.toFixed(2);
+    })
+    ipcRenderer.on('total-ram', (e, data) => {
+      document.getElementById('total-ram').innerHTML = data.toFixed(2);
+    })
+    ipcRenderer.on('ram', (e, data) => {
+      document.getElementById('ram').innerHTML = data.toFixed(2);
+    })
+  </script>
+</body>
+
 </html>
